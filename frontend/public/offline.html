@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1E3A8A" />
+  <title>Offline - Rush Delivery</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1E3A8A; /* deep blue */
+      --accent: #10B981; /* green */
+      --bg: #0b1220; /* dark navy */
+      --card: #111827; /* slate-900 */
+      --text: #E5E7EB; /* slate-200 */
+      --muted: #9CA3AF; /* slate-400 */
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(30,58,138,0.25), transparent),
+                  radial-gradient(1200px 800px at 80% 0%, rgba(16,185,129,0.18), transparent),
+                  var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      background: rgba(17,24,39,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      max-width: 560px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .brand img { width: 40px; height: 40px; border-radius: 8px; }
+    .brand .name { font-family: Poppins, Inter, sans-serif; font-weight: 700; font-size: 22px; }
+    h1 { font-family: Poppins, Inter, sans-serif; font-size: 24px; margin: 10px 0 6px; }
+    p { margin: 8px 0; color: var(--muted); }
+    .actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      appearance: none; border: none; cursor: pointer; font-weight: 600; border-radius: 10px;
+      padding: 10px 16px; font-size: 14px; transition: transform .08s ease, opacity .2s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary { background: var(--accent); color: #06251c; }
+    .btn.secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.18); }
+    .tips { margin-top: 16px; font-size: 13px; color: var(--muted); }
+    .tips ul { margin: 8px 0 0 0; padding: 0 0 0 18px; text-align: left; }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="offline-title">
+    <div class="brand">
+      <img src="/logo.png" alt="Rush Delivery logo" />
+      <div class="name">Rush Delivery</div>
+    </div>
+    <h1 id="offline-title">You’re Offline</h1>
+    <p>The network seems unavailable. You can continue browsing previously loaded pages, or try again when you’re back online.</p>
+    <div class="actions">
+      <button class="btn primary" onclick="location.reload()">Try Again</button>
+      <a class="btn secondary" href="/">Go to Home</a>
+      <a class="btn secondary" href="/tracking">Open Tracking</a>
+    </div>
+    <div class="tips" aria-label="Tips for offline usage">
+      <p>Tips:</p>
+      <ul>
+        <li>Pages you’ve opened recently may continue to work offline.</li>
+        <li>Tracking details you viewed are cached and can be shown offline.</li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
