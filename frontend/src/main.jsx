@@ -5,8 +5,6 @@ import './index.css'
 import { ErrorBoundary } from 'react-error-boundary'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const queryClient = new QueryClient()
-
 function ErrorFallback({ error }) {
   return (
     <div role="alert" className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -15,6 +13,15 @@ function ErrorFallback({ error }) {
     </div>
   )
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
