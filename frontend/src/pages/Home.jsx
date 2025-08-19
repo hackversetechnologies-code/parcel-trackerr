@@ -82,7 +82,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative w-full py-16 md:py-28 bg-gradient-to-r from-primary to-blue-700 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/30 pointer-events-none"></div>
-        <div className="container relative z-10 grid md:grid-cols-2 gap-10 items-center">
+        <div className="container relative z-10 grid md:grid-cols-2 gap-10 items-center animate-fade-in-up">
           <div className="space-y-6">
             <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
               Track Your Deliveries in <span className="text-accent">Real-Time</span>
@@ -102,7 +102,7 @@ export default function Home() {
               />
               <Button 
                 size="lg" 
-                className="bg-accent hover:bg-accent/90 h-12 px-8 text-lg font-semibold"
+                className="bg-accent hover:bg-accent/90 h-12 px-8 text-lg font-semibold btn-hover"
                 onClick={handleTrack}
               >
                 Track Parcel
@@ -110,37 +110,37 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse-slow"></div>
                 <span>Live Tracking</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-slow"></div>
                 <span>99.9% Uptime</span>
               </div>
             </div>
           </div>
-          <div className="block md:block max-w-[240px] md:max-w-[420px] mx-auto md:justify-self-end">
+          <div className="block md:block max-w-[240px] md:max-w-[420px] mx-auto md:justify-self-end animate-fade-in">
             <Lottie animationData={deliveryAnimation} loop={true} />
           </div>
         </div>
       </section>
 
       {/* Live Stats Strip */}
-      <section className="py-10 bg-white border-b">
+      <section className="py-10 bg-white border-b section-spacing">
         <div className="container grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             <Counter to={200000} suffix="+" className="text-primary" />
             <div className="text-sm text-muted-foreground">Parcels Delivered</div>
           </div>
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <Counter to={999} suffix=".9%" className="text-accent" />
             <div className="text-sm text-muted-foreground">Platform Uptime</div>
           </div>
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <Counter to={9000} suffix="+" className="text-primary" />
             <div className="text-sm text-muted-foreground">Active Customers</div>
           </div>
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <Counter to={100} suffix="+" className="text-accent" />
             <div className="text-sm text-muted-foreground">Regions Served</div>
           </div>
@@ -148,7 +148,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-slate-50 section-spacing">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Rush Delivery?</h2>
@@ -157,31 +157,19 @@ export default function Home() {
               secure handling, and exceptional customer service.
             </p>
           </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="text-center hover:scale-105 transition-transform duration-300 border-0 shadow-lg">
-                <CardHeader>
-                  <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-                    <MapPin className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle className="mt-4 text-xl">Live Map Tracking</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Watch your parcel move on the map in real-time from pickup to delivery.</p>
-                </CardContent>
-              </Card>
-              <div className="partners-logos">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/DHL_Logo.svg/2560px-DHL_Logo.svg.png" alt="DHL Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/United_Parcel_Service_logo_2014.svg/2560px-United_Parcel_Service_logo_2014.svg.png" alt="UPS Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/FedEx_Express.svg/2560px-FedEx_Express.svg.png" alt="FedEx Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/USPS_Logo.svg/2560px-USPS_Logo.svg.png" alt="USPS Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/DPD_Logo.svg/2560px-DPD_Logo.svg.png" alt="DPD Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GLS_logo.svg/2560px-GLS_logo.svg.png" alt="GLS Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/TNT_Express_logo.svg/2560px-TNT_Express_logo.svg.png" alt="TNT Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Aramex_logo.svg/2560px-Aramex_logo.svg.png" alt="Aramex Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Maersk_Group_logo.svg/2560px-Maersk_Group_logo.svg.png" alt="Maersk Logo" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/DB_Schenker_Logo.svg/2560px-DB_Schenker_Logo.svg.png" alt="DB Schenker Logo" />
-              </div>
-            <Card className="text-center hover:scale-105 transition-transform duration-300 border-0 shadow-lg">
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="text-center card-hover border-0 shadow-lg">
+              <CardHeader>
+                <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
+                  <MapPin className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="mt-4 text-xl">Live Map Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Watch your parcel move on the map in real-time from pickup to delivery.</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center card-hover border-0 shadow-lg">
               <CardHeader>
                 <div className="mx-auto bg-accent/10 p-4 rounded-full w-fit">
                   <Bell className="h-8 w-8 text-accent" />
@@ -192,7 +180,7 @@ export default function Home() {
                 <p>Receive instant notifications for every step of your parcel's journey.</p>
               </CardContent>
             </Card>
-            <Card className="text-center hover:scale-105 transition-transform duration-300 border-0 shadow-lg">
+            <Card className="text-center card-hover border-0 shadow-lg">
               <CardHeader>
                 <div className="mx-auto bg-gray-500/10 p-4 rounded-full w-fit">
                   <ShieldCheck className="h-8 w-8 text-gray-500" />
@@ -243,46 +231,32 @@ export default function Home() {
               ].map((p) => (
                 <img key={p.name} src={p.url} alt={`${p.name} logo`} className="partners-logo" />
               ))}
-              {[
-                { name: 'DHL', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/DHL_Logo.svg/2560px-DHL_Logo.svg.png' },
-                { name: 'UPS', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/United_Parcel_Service_logo_2014.svg/2560px-United_Parcel_Service_logo_2014.svg.png' },
-                { name: 'FedEx', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/FedEx_Express.svg/2560px-FedEx_Express.svg.png' },
-                { name: 'USPS', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/USPS_Logo.svg/2560px-USPS_Logo.svg.png' },
-                { name: 'DPD', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/DPD_Logo.svg/2560px-DPD_Logo.svg.png' },
-                { name: 'GLS', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GLS_logo.svg/2560px-GLS_logo.svg.png' },
-                { name: 'TNT', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/TNT_Express_logo.svg/2560px-TNT_Express_logo.svg.png' },
-                { name: 'Aramex', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Aramex_logo.svg/2560px-Aramex_logo.svg.png' },
-                { name: 'Maersk', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Maersk_Group_logo.svg/2560px-Maersk_Group_logo.svg.png' },
-                { name: 'DB Schenker', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/DB_Schenker_Logo.svg/2560px-DB_Schenker_Logo.svg.png' },
-              ].map((p) => (
-                <img key={`${p.name}-dup`} src={p.url} alt={`${p.name} logo`} className="partners-logo" />
-              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Use Cases */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16 bg-slate-50 section-spacing">
         <div className="container">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold">Use Cases</h2>
             <p className="text-muted-foreground">Tailored solutions for every logistics workflow</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="border-0 shadow-md hover:shadow-lg transition">
+            <Card className="border-0 shadow-md card-hover">
               <CardHeader>
                 <div className="flex items-center gap-2 text-primary"><ShoppingCart className="h-5 w-5" /><CardTitle>E‑commerce</CardTitle></div>
               </CardHeader>
               <CardContent className="text-muted-foreground">Real-time tracking for customer transparency and reduced WISMO support.</CardContent>
             </Card>
-            <Card className="border-0 shadow-md hover:shadow-lg transition">
+            <Card className="border-0 shadow-md card-hover">
               <CardHeader>
                 <div className="flex items-center gap-2 text-primary"><Building2 className="h-5 w-5" /><CardTitle>B2B Logistics</CardTitle></div>
               </CardHeader>
               <CardContent className="text-muted-foreground">Fleet-level visibility, route monitoring, and exception alerts for operations.</CardContent>
             </Card>
-            <Card className="border-0 shadow-md hover:shadow-lg transition">
+            <Card className="border-0 shadow-md card-hover">
               <CardHeader>
                 <div className="flex items-center gap-2 text-primary"><Hospital className="h-5 w-5" /><CardTitle>Healthcare</CardTitle></div>
               </CardHeader>
@@ -293,26 +267,26 @@ export default function Home() {
       </section>
 
       {/* Security & Compliance */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white section-spacing">
         <div className="container">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold">Security & Compliance</h2>
             <p className="text-muted-foreground">Built with best practices for data protection and reliability</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="border rounded-md">
+            <Card className="border rounded-md card-hover">
               <CardHeader>
                 <div className="flex items-center gap-2 text-primary"><Lock className="h-5 w-5" /><CardTitle>Encryption‑in‑Transit</CardTitle></div>
               </CardHeader>
               <CardContent className="text-muted-foreground">All communication is secured with TLS. Sensitive fields are restricted by role.</CardContent>
             </Card>
-            <Card className="border rounded-md">
+            <Card className="border rounded-md card-hover">
               <CardHeader>
                 <div className="flex items-center gap-2 text-primary"><Shield className="h-5 w-5" /><CardTitle>Role‑Based Access</CardTitle></div>
               </CardHeader>
               <CardContent className="text-muted-foreground">Admin and client roles ensure appropriate privileges for parcel operations.</CardContent>
             </Card>
-            <Card className="border rounded-md">
+            <Card className="border rounded-md card-hover">
               <CardHeader>
                 <div className="flex items-center gap-2 text-primary"><Cpu className="h-5 w-5" /><CardTitle>Reliable Infrastructure</CardTitle></div>
               </CardHeader>
@@ -323,7 +297,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white section-spacing">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
@@ -332,21 +306,21 @@ export default function Home() {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
+            <div className="text-center card-hover">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-xl">1</span>
               </div>
               <h3 className="text-xl font-semibold mb-2">Enter Tracking ID</h3>
               <p className="text-gray-600">Input your unique tracking number in the search bar</p>
             </div>
-            <div className="text-center">
+            <div className="text-center card-hover">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-xl">2</span>
               </div>
               <h3 className="text-xl font-semibold mb-2">View Real-time Location</h3>
               <p className="text-gray-600">See your parcel's exact location on the interactive map</p>
             </div>
-            <div className="text-center">
+            <div className="text-center card-hover">
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-xl">3</span>
               </div>
@@ -358,7 +332,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-slate-50 section-spacing">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
@@ -367,9 +341,13 @@ export default function Home() {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6">
+            <Card className="p-6 card-hover">
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                <img 
+                  src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=120&q=80" 
+                  alt="Sarah Johnson" 
+                  className="w-12 h-12 rounded-full mr-4 object-cover"
+                />
                 <div>
                   <h4 className="font-semibold">Sarah Johnson</h4>
                   <p className="text-sm text-gray-600">Business Owner</p>
@@ -385,9 +363,13 @@ export default function Home() {
                 The real-time tracking is incredibly accurate and reliable."
               </p>
             </Card>
-            <Card className="p-6">
+            <Card className="p-6 card-hover">
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                <img 
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=120&q=80" 
+                  alt="Michael Chen" 
+                  className="w-12 h-12 rounded-full mr-4 object-cover"
+                />
                 <div>
                   <h4 className="font-semibold">Michael Chen</h4>
                   <p className="text-sm text-gray-600">E-commerce Manager</p>
@@ -403,9 +385,13 @@ export default function Home() {
                 Our customers love the transparency."
               </p>
             </Card>
-            <Card className="p-6">
+            <Card className="p-6 card-hover">
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                <img 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=120&q=80" 
+                  alt="Emily Rodriguez" 
+                  className="w-12 h-12 rounded-full mr-4 object-cover"
+                />
                 <div>
                   <h4 className="font-semibold">Emily Rodriguez</h4>
                   <p className="text-sm text-gray-600">Freelance Designer</p>
@@ -427,42 +413,53 @@ export default function Home() {
 
       {/* FAQ Section */}
       <section className="py-16 bg-white">
-        <div className="container max-w-3xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground">Everything you need to know about tracking and deliveries</p>
+        <div className="container">
+          <div className="flex flex-col lg:flex-row gap-8">
+            <div className="lg:w-1/2">
+              <div className="max-w-3xl">
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-2">Frequently Asked Questions</h2>
+                  <p className="text-muted-foreground">Everything you need to know about tracking and deliveries</p>
+                </div>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="q1">
+                    <AccordionTrigger>Do I need an account to track a parcel?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. For privacy and security, tracking requires authentication. Create an account or log in to proceed.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="q2">
+                    <AccordionTrigger>What statuses can I expect to see?</AccordionTrigger>
+                    <AccordionContent>
+                      Typical statuses include Pending, Processing, In Transit, Out for Delivery, and Delivered.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="q3">
+                    <AccordionTrigger>Can I receive notifications?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. You can enable email and in-app toasts in the Tracking page. Push notifications are coming soon.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="q4">
+                    <AccordionTrigger>How accurate is the live map?</AccordionTrigger>
+                    <AccordionContent>
+                      Accuracy depends on the courier's GPS availability and frequency of updates. We display the latest known location.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </div>
+            <div className="lg:w-1/2 flex justify-center items-center hidden lg:flex">
+              <div className="max-w-md w-full">
+                <Lottie animationData={faqAnimation} loop={true} />
+              </div>
+            </div>
           </div>
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="q1">
-              <AccordionTrigger>Do I need an account to track a parcel?</AccordionTrigger>
-              <AccordionContent>
-                Yes. For privacy and security, tracking requires authentication. Create an account or log in to proceed.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger>What statuses can I expect to see?</AccordionTrigger>
-              <AccordionContent>
-                Typical statuses include Pending, Processing, In Transit, Out for Delivery, and Delivered.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger>Can I receive notifications?</AccordionTrigger>
-              <AccordionContent>
-                Yes. You can enable email and in-app toasts in the Tracking page. Push notifications are coming soon.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q4">
-              <AccordionTrigger>How accurate is the live map?</AccordionTrigger>
-              <AccordionContent>
-                Accuracy depends on the courier’s GPS availability and frequency of updates. We display the latest known location.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16 bg-slate-50 section-spacing">
         <div className="container max-w-3xl">
           <div className="text-center mb-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-2">Get Logistics Tips & Updates</h2>
@@ -477,7 +474,7 @@ export default function Home() {
               className="h-12 text-base"
               aria-label="Email address"
             />
-            <Button size="lg" className="h-12 px-6" onClick={handleSubscribe} disabled={submitting} aria-label="Subscribe">
+            <Button size="lg" className="h-12 px-6 btn-hover" onClick={handleSubscribe} disabled={submitting} aria-label="Subscribe">
               {submitting ? 'Submitting...' : 'Subscribe'}
             </Button>
           </div>
@@ -493,10 +490,10 @@ export default function Home() {
             Join thousands of satisfied customers who trust Rush Delivery for their logistics needs
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 px-8 text-lg">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 px-8 text-lg btn-hover">
               Track Your Parcel
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary btn-hover">
               Learn More
             </Button>
           </div>

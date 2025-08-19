@@ -14,6 +14,7 @@ import { onSnapshot, doc, collection, query, where, setDoc } from 'firebase/fire
 import { db } from '@/firebase';
 import { Package, Clock, CheckCircle, Truck, MapPin, Share2, Bell, Navigation } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ErrorBoundary } from 'react-error-boundary';
 
 function decodeJwt(token) {
   try {
@@ -23,6 +24,20 @@ function decodeJwt(token) {
   } catch {
     return null;
   }
+}
+
+function MapErrorFallback({ error, resetErrorBoundary }) {
+  return (
+    <div className="h-96 flex items-center justify-center bg-gray-100 rounded-lg border">
+      <div className="text-center p-6">
+        <div className="text-gray-400 mb-3">
+          <MapPin className="w-16 h-16 mx-auto" />
+        </div>
+        <p className="text-gray-500 font-medium">Map unavailable</p>
+        <p className="text-gray-400 text-sm mt-1">Tracking information will display without map visualization</p>
+      </div>
+    </div>
+  );
 }
 
 function TrackingEnhanced() {
@@ -182,10 +197,10 @@ function TrackingEnhanced() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="mb-4 rounded-md border border-yellow-300 bg-yellow-50 text-yellow-800 px-4 py-2"
+            className="mb-4 rounded-md border border-yellow-300 bg-yellow-50 text-yellow-800 px-4 py-3"
           >
             <div className="flex items-center space-x-2">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-5 h-5" />
               <span>You are viewing cached tracking data (offline).</span>
             </div>
           </motion.div>
@@ -199,15 +214,15 @@ function TrackingEnhanced() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <p className="text-sm text-muted-foreground mb-3">Recent searches</p>
+          <p className="text-sm text-muted-foreground mb-3">Recent</p>
           <div className="flex flex-wrap gap-2">
             {recent.map((id) => (
-              <Button
-                key={id}
-                size="sm"
-                variant="outline"
+              <Button 
+                key={id} 
+                size="sm" 
+                variant="outline" 
                 onClick={() => handleQuickSelect(id)}
-                className="hover:bg-primary/10"
+                className="rounded-full btn-hover"
               >
                 {id}
               </Button>
@@ -224,69 +239,73 @@ function TrackingEnhanced() {
       >
         <div className="max-w-md mx-auto">
           <div className="flex space-x-2">
-            <Input
-              placeholder="Enter Tracking ID"
+            <Input 
+              placeholder="Enter Tracking ID" 
               value={trackingId}
               onChange={(e) => setTrackingId(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="flex-1"
+              className="h-12 rounded-full border px-4"
             />
-            <Button onClick={handleSearch} className="px-6">
-              <Navigation className="w-4 h-4 mr-2" />
+            <Button 
+              onClick={handleSearch}
+              className="h-12 px-6 rounded-full btn-hover"
+            >
               Track
             </Button>
           </div>
         </div>
       </motion.div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {parcel ? (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="grid lg:grid-cols-3 gap-6"
           >
             {/* Parcel Details */}
             <div className="lg:col-span-2 space-y-6">
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
+              <Card className="card-hover shadow-lg rounded-xl border">
+                <CardHeader className="border-b pb-4">
                   <CardTitle className="flex items-center justify-between">
-                    <span className="text-xl">Parcel Details</span>
-                    <Badge className={`${getStatusColor(parcel.status)} text-white`}>
+                    <span>Parcel Details</span>
+                    <Badge className={`${getStatusColor(parcel.status)} text-white rounded-full px-3 py-1`}>
                       {parcel.status}
                     </Badge>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-muted-foreground">Tracking ID</p>
-                      <p className="font-semibold font-mono">{parcel.tracking_id}</p>
+                <CardContent className="space-y-6 py-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Tracking ID</p>
+                      <p className="font-semibold">{parcel.tracking_id}</p>
                     </div>
-                    <div className="space-y-1">
-                      <p className="text-sm text-muted-foreground">Estimated Delivery</p>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Estimated Delivery</p>
                       <p className="font-semibold">{new Date(parcel.estimated_delivery).toLocaleDateString()}</p>
                     </div>
                   </div>
                   
                   <div>
-                    <p className="text-sm text-muted-foreground mb-2">Delivery Progress</p>
-                    <Progress value={getProgressValue(parcel.status)} className="h-2" />
-                    {etaText && (
-                      <div className="text-sm text-muted-foreground mt-2">
-                        Estimated arrival: <span className="font-semibold text-foreground">{etaText}</span>
+                    <p className="text-sm text-muted-foreground mb-3">Delivery Progress</p>
+                    <div className="space-y-2">
+                      <Progress value={getProgressValue(parcel.status)} className="h-2" />
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>Order Placed</span>
+                        <span>In Transit</span>
+                        <span>Out for Delivery</span>
+                        <span>Delivered</span>
                       </div>
-                    )}
+                    </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-muted-foreground">Sender</p>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Sender</p>
                       <p className="font-semibold">{parcel.sender}</p>
                     </div>
-                    <div className="space-y-1">
-                      <p className="text-sm text-muted-foreground">Receiver</p>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Receiver</p>
                       <p className="font-semibold">{parcel.receiver}</p>
                     </div>
                   </div>
@@ -294,145 +313,148 @@ function TrackingEnhanced() {
               </Card>
 
               {/* Timeline */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Clock className="w-5 h-5 mr-2" />
-                    Delivery Timeline
-                  </CardTitle>
+              <Card className="card-hover shadow-lg rounded-xl border">
+                <CardHeader className="border-b pb-4">
+                  <CardTitle>Delivery Timeline</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="py-6">
                   <div className="space-y-4">
                     {timeline.map((item, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-center space-x-4"
-                      >
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                      <div key={index} className="flex items-start space-x-4">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1 ${
                           item.completed ? 'bg-green-500' : 'bg-gray-300'
                         }`}>
                           <item.icon className="w-5 h-5 text-white" />
                         </div>
-                        <div className="flex-1">
-                          <p className="font-semibold">{item.status}</p>
-                          <p className="text-sm text-muted-foreground">{item.date}</p>
+                        <div className="flex-1 pb-4 border-l-2 border-gray-200 pl-4 -ml-5">
+                          <div className={`font-semibold ${item.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
+                            {item.status}
+                          </div>
+                          <div className="text-sm text-muted-foreground">{item.date}</div>
                         </div>
-                        {index < timeline.length - 1 && (
-                          <div className={`w-full h-0.5 ${item.completed ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                        )}
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
 
               {/* Map */}
-              <Card>
-                <CardHeader>
+              <Card className="card-hover shadow-lg rounded-xl border">
+                <CardHeader className="border-b pb-4">
                   <CardTitle className="flex items-center justify-between">
-                    <span className="flex items-center">
-                      <MapPin className="w-5 h-5 mr-2" />
-                      Live Location
-                    </span>
-                    <Button
-                      variant="outline"
-                      size="sm"
+                    <span>Live Location</span>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
                       onClick={() => setShowMap(!showMap)}
+                      className="rounded-full"
                     >
-                      {showMap ? 'Hide' : 'Show'} Map
+                      {showMap ? 'Hide Map' : 'Show Map'}
                     </Button>
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <AnimatePresence>
-                    {showMap && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <MapWithLiveTracking
-                          parcel={parcel}
-                          className="h-96"
-                          interactive={true}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <CardContent className="py-6">
+                  {showMap ? (
+                    <ErrorBoundary
+                      FallbackComponent={MapErrorFallback}
+                      onReset={() => {
+                        // Reset the map component if needed
+                      }}
+                    >
+                      <div className="h-96 rounded-lg overflow-hidden">
+                        {parcel?.location?.lat && parcel?.location?.lng ? (
+                          <MapWithLiveTracking parcel={parcel} />
+                        ) : (
+                          <div className="h-full flex items-center justify-center bg-gray-100 rounded-lg">
+                            <div className="text-center p-6">
+                              <div className="text-gray-400 mb-3">
+                                <MapPin className="w-16 h-16 mx-auto" />
+                              </div>
+                              <p className="text-gray-500 font-medium">Location data unavailable</p>
+                              <p className="text-gray-400 text-sm mt-1">Tracking information will update when location is available</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </ErrorBoundary>
+                  ) : (
+                    <div className="h-32 flex items-center justify-center bg-gray-50 rounded-lg">
+                      <p className="text-muted-foreground">Map hidden. Click "Show Map" to view.</p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
 
             {/* Sidebar */}
             <div className="space-y-6">
-              <Card>
-                <CardHeader>
+              <Card className="card-hover shadow-lg rounded-xl border">
+                <CardHeader className="border-b pb-4">
                   <CardTitle className="flex items-center">
                     <Bell className="w-5 h-5 mr-2" />
                     Notifications
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Email Notifications</span>
-                      <Button
-                        variant={notificationsEnabled ? 'default' : 'outline'}
-                        size="sm"
-                        onClick={() => setNotificationsEnabled(!notificationsEnabled)}
-                      >
-                        {notificationsEnabled ? 'Enabled' : 'Disabled'}
-                      </Button>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">SMS Notifications</span>
-                      <Button variant="outline" size="sm">Disabled</Button>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Push Notifications</span>
-                      <Button variant="outline" size="sm">Disabled</Button>
-                    </div>
+                <CardContent className="space-y-4 py-6">
+                  <div className="flex items-center justify-between">
+                    <span>Email Notifications</span>
+                    <Button 
+                      variant={notificationsEnabled ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+                      className="rounded-full"
+                    >
+                      {notificationsEnabled ? 'Enabled' : 'Disabled'}
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>SMS Notifications</span>
+                    <Button variant="outline" size="sm" className="rounded-full">
+                      Disabled
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Push Notifications</span>
+                    <Button variant="outline" size="sm" className="rounded-full">
+                      Disabled
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
+              <Card className="card-hover shadow-lg rounded-xl border">
+                <CardHeader className="border-b pb-4">
                   <CardTitle className="flex items-center">
                     <Share2 className="w-5 h-5 mr-2" />
                     Quick Actions
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-3 py-6">
                   <Button
                     variant="outline"
-                    className="w-full"
+                    className="w-full btn-hover rounded-full"
                     onClick={handleShare}
                   >
                     <Share2 className="w-4 h-4 mr-2" />
                     Share Tracking
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full btn-hover rounded-full">
                     Report Issue
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full btn-hover rounded-full">
                     Contact Support
                   </Button>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
+              <Card className="card-hover shadow-lg rounded-xl border">
+                <CardHeader className="border-b pb-4">
                   <CardTitle>Delivery Address</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="py-6">
                   <div className="space-y-2">
                     <p className="font-semibold">{parcel.receiver}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground bg-muted p-3 rounded">
                       123 Main Street, Apt 4B<br />
                       New York, NY 10001
                     </p>

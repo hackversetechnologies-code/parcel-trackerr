@@ -46,7 +46,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-[90] w-full shadow-sm" style={{ backgroundColor: 'hsl(var(--card))', borderBottom: '1px solid hsl(var(--border))' }}>
+      <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-[90] w-full shadow-sm animate-fade-in" style={{ backgroundColor: 'hsl(var(--card))', borderBottom: '1px solid hsl(var(--border))' }}>
         <div className="container flex h-16 items-center justify-between">
           <NavLink to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Rush Delivery" className="h-8 w-8" />
@@ -81,7 +81,7 @@ export default function Navbar() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="h-9"
             />
-            <Button type="submit" size="sm" aria-label="Search tracking">
+            <Button type="submit" size="sm" className="btn-hover" aria-label="Search tracking">
               <Search className="h-4 w-4" />
             </Button>
           </form>
@@ -94,14 +94,15 @@ export default function Navbar() {
               aria-pressed={theme !== 'system'}
               onClick={() => setTheme(theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light')}
               title={`Theme: ${theme}`}
+              className="btn-hover"
             >
               {theme === 'system' ? <Laptop className="h-5 w-5" /> : resolved === 'dark' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
             </Button>
-            <Button variant="ghost" size="icon" className="relative" aria-label="Notifications">
+            <Button variant="ghost" size="icon" className="relative btn-hover" aria-label="Notifications">
               <Bell className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full" />
             </Button>
-            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Logout">
+            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Logout" className="btn-hover">
               <LogOut className="h-5 w-5" />
             </Button>
             {isTablet && (
@@ -110,6 +111,7 @@ export default function Navbar() {
                 size="icon"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                className="btn-hover"
               >
                 {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
@@ -120,14 +122,14 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && isTablet && (
-        <div className="fixed inset-0 z-40" style={{ backgroundColor: 'hsl(var(--background))' }}>
+        <div className="fixed inset-0 z-40 animate-fade-in" style={{ backgroundColor: 'hsl(var(--background))' }}>
           <div className="container py-16">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <NavLink
                   key={item.name}
                   to={item.path}
-                  className="text-lg font-medium"
+                  className="text-lg font-medium card-hover p-3 rounded-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
