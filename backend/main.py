@@ -21,7 +21,7 @@ db = firestore.client()
 app = FastAPI()
 
 origins = [
-    "*",
+    "https://parcel-trackerr.netlify.app/",
 ]
 
 app.add_middleware(
