@@ -18,6 +18,12 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to my FastAPI application"}
+
+
 security = HTTPBearer()
 JWT_SECRET = os.getenv('JWT_SECRET')
 
