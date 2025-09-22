@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['logo.png', 'logo1.png', 'vite.svg', 'offline.html'],
       manifest: {
         name: 'Rush Delivery',
         short_name: 'RushDelivery',
@@ -26,14 +26,14 @@ export default defineConfig({
             type: 'image/png'
           },
           {
-            src: '/logo.png',
+            src: '/logo1.png',
             sizes: '512x512',
             type: 'image/png'
           }
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        globPatterns: ['**/*.{js,css,html,png,svg}'],
         navigateFallback: '/offline.html',
         runtimeCaching: [
           {
