@@ -4,7 +4,7 @@ services:
     name: delivery-frontend
     env: static
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    staticPublishPath: ./dist
     routes:
       - type: rewrite
         source: /.*
@@ -35,12 +35,10 @@ services:
     name: delivery-backend
     env: python
     plan: free
-    buildCommand: pip install -r backend/requirements.txt
-    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: FIREBASE_SERVICE_ACCOUNT_PATH
         sync: false
       - key: JWT_SECRET
         generateValue: true
-      - key: PYTHONPATH
-        value: /opt/render/project/src
