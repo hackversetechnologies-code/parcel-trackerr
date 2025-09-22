@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from passlib.context import CryptContext
 import jwt
@@ -18,25 +18,16 @@ cred = credentials.Certificate(os.getenv('FIREBASE_SERVICE_ACCOUNT_PATH'))
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-app = FastAPI()
+app = FastAPI(title="Delivery Website API", version="1.0.0")
 
-origins = [
-    "https://parcel-trackerr.netlify.app/",
-]
-
+# CORS middleware for frontend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Configure this properly in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to my FastAPI application"}
-
-
 security = HTTPBearer()
 JWT_SECRET = os.getenv('JWT_SECRET')
 
