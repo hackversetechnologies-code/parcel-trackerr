@@ -3,11 +3,11 @@ services:
   - type: web
     name: delivery-frontend
     env: static
-    buildCommand: cd frontend && npm install && npm run build
+    buildCommand: cd frontend && npm ci && npm run build
     staticPublishPath: ./dist
     routes:
       - type: rewrite
-        source: /.*
+        source: /((?!assets|favicon|logo|manifest|sw|registerSW|workbox).*)
         destination: /index.html
     envVars:
       - key: VITE_API_URL
