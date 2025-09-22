@@ -32,7 +32,7 @@ app.add_middleware(
 )
 
 # Serve static files from React build
-app.mount("/static", StaticFiles(directory="frontend/dist/static"), name="static")
+app.mount("/static", StaticFiles(directory="frontend/dist"), name="static")
 
 # Serve favicon
 @app.get("/favicon.ico")
