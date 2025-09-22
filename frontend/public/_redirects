@@ -1,0 +1,11 @@
+# Redirect all traffic to index.html for SPA routing
+/*    /index.html   200
+
+# Exclude static assets from redirect
+/assets/*  /assets/:splat  200
+/favicon*  /favicon.ico  200
+/logo*     /logo.png  200
+/manifest* /manifest.webmanifest  200
+/sw.js     /sw.js  200
+/registerSW.js  /registerSW.js  200
+/workbox*  /workbox-*.js  200
